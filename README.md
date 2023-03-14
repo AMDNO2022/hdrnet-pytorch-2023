@@ -59,22 +59,22 @@ Modify the graphics resolution and network size : network :: FullNet & LowNet
 Modify the channal : train & train
 
 ## about
-@article{gharbi2017deep,
+    @article{gharbi2017deep,
 
-  title={Deep bilateral learning for real-time image enhancement},
+        title={Deep bilateral learning for real-time image enhancement},
 
-  author={Gharbi, Micha{\"e}l and Chen, Jiawen and Barron, Jonathan T and Hasinoff, Samuel W and Durand, Fr{\'e}do},
+        author={Gharbi, Micha{\"e}l and Chen, Jiawen and Barron, Jonathan T and Hasinoff, Samuel W and Durand, Fr{\'e}do},
 
-  journal={ACM Transactions on Graphics (TOG)},
+        journal={ACM Transactions on Graphics (TOG)},
 
-  volume={36},
+        volume={36},
 
-  number={4},
+        number={4},
 
-  pages={118},
+        pages={118},
 
-  year={2017},
+        year={2017},
 
-  publisher={ACM}
-  
-}
+        publisher={ACM}
+      
+    }
