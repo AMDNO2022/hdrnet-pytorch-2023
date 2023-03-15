@@ -1,20 +1,16 @@
 # hdrnet-pytorch-2023
-The repository contains a simple implementation of HDRNet (Deep Bilateral Learning for Real-Time Image Enhancement, SIGGRAPH 2017) in 2023.
+The repository contains a alternative implementation of HDRNet (Deep Bilateral Learning for Real-Time Image Enhancement, SIGGRAPH 2017) in 2023.
+
+# This repository is not finished yet
 
 python 3.8
 
-pytorch 1.3.1
+pytorch 1.13.1
 
-cuda 10.2
+cuda 11.6
 
 ## description
-Since I needed to do research on HDRNET's learnable bilateral grid, I reimplemented it with Pytorch.
-
-
-Trilinear interpolation discards the edge area.
-
-
-Without the implementation of the CUDA operator, the training will be very slow. I think I'll improve this in the future.
+Since I needed to study the usability of HDRNet for my research, I developed an HDRNet-like network. To develop efficiency, I used 1 * 1 convolutional layers instead of pixelwisenet and 16 * 16 deconvolutional layers instead of bilateral grid upsampling.
 
 ## train
 
@@ -47,7 +43,7 @@ Crop the Fivek dataset image and import it into the folder dataset/test/img.
 python3 test.py
 ```
 ##### output
-960 * 960 -> dataset/test/output
+1024 * 1024 -> dataset/test/output
 
 
 ## code by

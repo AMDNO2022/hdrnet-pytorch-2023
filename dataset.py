@@ -30,12 +30,10 @@ class TrainDataset(Dataset):
 		# random crop
 		up_left_y = random.randint(0, len(origin_full) - 1024)
 		up_left_x = random.randint(0, len(origin_full[0]) - 1024)
-		print(up_left_y, up_left_x)
-
 
 		full_img = origin_full[up_left_y : up_left_y + 1024, up_left_x : up_left_x + 1024]
 		low_img = cv2.resize(full_img, (256, 256))
-		gt_img = origin_gt[up_left_y : up_left_y + 960, up_left_x : up_left_x + 960]
+		gt_img = origin_gt[up_left_y : up_left_y + 1024, up_left_x : up_left_x + 1024]
 
 		return self.transf(full_img), self.transf(low_img), self.transf(gt_img)
 

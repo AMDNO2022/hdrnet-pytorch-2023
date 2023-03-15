@@ -36,7 +36,7 @@ for epoch in range(2):
             full, low, gt = full.to(device), low.to(device), gt.to(device)
 
             fullnet.zero_grad()
-            output = fullnet(full, low, device)
+            output = fullnet(full, low)
             loss = criterion(output, gt)
             loss.backward()
             optimizer.step()
