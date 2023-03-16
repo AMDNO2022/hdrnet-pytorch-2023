@@ -67,7 +67,7 @@ class PixelWiseNet(nn.Module):
 
     def __init__(self, channel):
         super(PixelWiseNet, self).__init__()
-        self.conv = nn.Conv2d(3, 3, 1, 1, 0)
+        self.conv = nn.Conv2d(channel, channel, 1, 1, 0)
 
     def forward(self, x):
         x = self.conv(x)
@@ -80,24 +80,22 @@ class FullNet(nn.Module):
         self.channel_size = channel
         self.p_net = PixelWiseNet(channel)
         self.l_net = LowNet(channel)
-        self.unconv1 = nn.ConvTranspose2d(6, 9, 4, 4, 0)
-        self.unconv2 = nn.ConvTranspose2d(9, 12, 4, 4, 0)
-        self.conv1 = nn.Conv2d(15, 5, 1, 1, 0)
-        self.conv2 = nn.Conv2d(8, 3, 1, 1, 0)
+        self.unconv1 = nn.ConvTranspose2d(channel * 2, channel * 3, 4, 4, 0)
+        self.unconv2 = nn.ConvTranspose2d(channel * 3, channel * 4, 4, 4, 0)
+        self.conv1 = nn.Conv2d(channel * 5, channel * 2, 1, 1, 0)
+        self.conv2 = nn.Conv2d(channel * 3, channel, 1, 1, 0)
 
     def forward(self, full_img, low_img):
         # input 1024 * 1024
-        g = self.p_net(full_img).view(3, 1024 * 1024)
-        g_min = g.min()
-        g = (g - g_min) / (g.max() - g_min)
+        g = self.p_net(full_img).view(self.channel_size, 1024 * 1024)
         # input 256 * 256
         A = self.l_net(low_img)
 
         A1 = F.relu(self.unconv1(A))
-        A2 = F.relu(self.unconv2(A1)).view(12, 1024 * 1024)
-        _A = F.relu(self.conv1(torch.cat((g, A2), 0).view(15, 1024, 1024)))
-        _A1 = torch.cat((_A.view(5, 1024 * 1024), full_img.view(3, 1024 * 1024)), 0)
+        A2 = F.relu(self.unconv2(A1)).view(self.channel_size * 4, 1024 * 1024)
+        _A = F.relu(self.conv1(torch.cat((g, A2), 0).view(self.channel_size * 5, 1024, 1024)))
+        _A1 = torch.cat((_A.view(self.channel_size * 2, 1024 * 1024), full_img.view(self.channel_size, 1024 * 1024)), 0)
 
-        O = self.conv2(_A1.view(8, 1024, 1024))
+        O = self.conv2(_A1.view(self.channel_size * 3, 1024, 1024))
 
         return O
