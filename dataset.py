@@ -11,11 +11,11 @@ class TrainDataset(Dataset):
 		self.transf = transforms.ToTensor()
 
 	def __len__(self):
-		return len(self.img_name) * 10
+		return len(self.img_name) * 5
 
 	def __getitem__(self, idx):
-		origin_full = cv2.imread(self.root_dir + "full/" + self.img_name[idx // 10])
-		origin_gt = cv2.imread(self.root_dir + "gt/" + self.img_name[idx // 10])
+		origin_full = cv2.imread(self.root_dir + "full/" + self.img_name[idx // 5])
+		origin_gt = cv2.imread(self.root_dir + "gt/" + self.img_name[idx // 5])
 
 		# random flip & rotate
 		flip = random.randint(-2, 1)
